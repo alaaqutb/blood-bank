@@ -1,0 +1,41 @@
+{
+  "lastRun": "1669758916021-add-blood-type-column-to-donors-table.js",
+  "migrations": [
+    {
+      "title": "1669735695073-create-cities-table.js",
+      "timestamp": 1669830890035
+    },
+    {
+      "title": "1669735695074-create-donors-table.js",
+      "timestamp": 1669830891085
+    },
+    {
+      "title": "1669735744641-create-blood-banks-table.js",
+      "timestamp": 1669830891408
+    },
+    {
+      "title": "1669735774951-create-donations-table.js",
+      "timestamp": 1669830891872
+    },
+    {
+      "title": "1669735798358-create-hospitals-table.js",
+      "timestamp": 1669830892249
+    },
+    {
+      "title": "1669735815721-create-blood-stocks-table.js",
+      "timestamp": 1669830892630
+    },
+    {
+      "title": "1669735858681-create-hospital-requests-table.js",
+      "timestamp": 1669830892916
+    },
+    {
+      "title": "1669757868854-add-blood-type-column-to-donations-table.js",
+      "timestamp": 1669830893074
+    },
+    {
+      "title": "1669758916021-add-blood-type-column-to-donors-table.js",
+      "timestamp": 1669830893279
+    }
+  ]
+}

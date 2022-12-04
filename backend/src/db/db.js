@@ -25,7 +25,7 @@ class DbProvider {
         console.error("error connecting: " + err.stack);
         return;
       }
-      console.log("database connected as id " + connection.threadId);
+      // console.log("database connected as id " + connection.threadId);
     });
 
     // execute sql query
@@ -36,7 +36,7 @@ class DbProvider {
       }
       callback(null, rows);
       connection.end();
-      console.log("database disconnected");
+      // console.log("database disconnected");
       return;
     });
   }

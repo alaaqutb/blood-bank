@@ -1,41 +1,57 @@
 {
-  "lastRun": "1669758916021-add-blood-type-column-to-donors-table.js",
+  "lastRun": "1670111830577-create-users-table.js",
   "migrations": [
     {
       "title": "1669735695073-create-cities-table.js",
-      "timestamp": 1669830890035
+      "timestamp": 1670089112852
     },
     {
       "title": "1669735695074-create-donors-table.js",
-      "timestamp": 1669830891085
+      "timestamp": 1670089113329
     },
     {
       "title": "1669735744641-create-blood-banks-table.js",
-      "timestamp": 1669830891408
+      "timestamp": 1670089114472
     },
     {
       "title": "1669735774951-create-donations-table.js",
-      "timestamp": 1669830891872
+      "timestamp": 1670089115030
     },
     {
       "title": "1669735798358-create-hospitals-table.js",
-      "timestamp": 1669830892249
+      "timestamp": 1670089115307
     },
     {
       "title": "1669735815721-create-blood-stocks-table.js",
-      "timestamp": 1669830892630
+      "timestamp": 1670089115531
     },
     {
       "title": "1669735858681-create-hospital-requests-table.js",
-      "timestamp": 1669830892916
+      "timestamp": 1670089115797
     },
     {
       "title": "1669757868854-add-blood-type-column-to-donations-table.js",
-      "timestamp": 1669830893074
+      "timestamp": 1670089115877
     },
     {
       "title": "1669758916021-add-blood-type-column-to-donors-table.js",
-      "timestamp": 1669830893279
+      "timestamp": 1670089115977
+    },
+    {
+      "title": "1670088083839-create-distances-table.js",
+      "timestamp": 1670089116175
+    },
+    {
+      "title": "1670101363638-add-available-column-to-blood-stocks-table.js",
+      "timestamp": 1670101751884
+    },
+    {
+      "title": "1670101778697-add-expired-column-to-blood-stocks-table.js",
+      "timestamp": 1670101823090
+    },
+    {
+      "title": "1670111830577-create-users-table.js",
+      "timestamp": 1670111952072
     }
   ]
 }

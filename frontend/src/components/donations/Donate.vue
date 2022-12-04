@@ -49,7 +49,9 @@
             @blur="validateCity()"
             v-model="donor.city"
           >
-            <option value="">--</option>
+            <option :value="city.id" :key="city.id" v-for="city in cities">
+              {{ city.name }}
+            </option>
           </select>
           <div class="invalid-feedback">Invalid City</div>
         </div>
@@ -81,10 +83,16 @@
           <select
             class="form-select"
             @blur="validateBloodBank()"
-            :class="this.errors.blood_bank"
+            :class="this.errors.blood_bank_id"
             v-model="donor.blood_bank_id"
           >
-            <option value="">--</option>
+            <option
+              :value="blood_bank.id"
+              :key="blood_bank.id"
+              v-for="blood_bank in blood_banks"
+            >
+              {{ blood_bank.name }}
+            </option>
           </select>
           <div class="invalid-feedback">Invalid Blood Bank</div>
         </div>
@@ -92,7 +100,7 @@
 
       <button
         type="submit"
-        class="btn btn-primary mt-3 w-100"
+        class="btn mt-3 w-100 navBarColor text-light"
         @click.prevent="donate()"
         :disabled="disableSubmit()"
       >
@@ -106,12 +114,8 @@ import { instance } from "../../axios/axios";
 export default {
   data() {
     return {
-      //   cities: [
-      // it should come from the backend
-      // { id: xxx, name: 'xxx' }
-      //     { id: 1, name: "zagazig" },
-      //   ],
-      //   blood_banks: [{ id: 1, name: "Haya" }],
+      cities: [],
+      blood_banks: [],
       donor: {
         name: "",
         email: "",
@@ -133,17 +137,61 @@ export default {
   methods: {
     async donate() {
       const result = await instance.post("/donate", this.donor);
-      console.log(result);
     },
-    validateName() {},
-    validateEmail() {},
-    validateBloodType() {},
-    validateBloodBank() {},
-    validateCity() {},
-    validateNationalID() {},
+    validateName() {
+      if (this.donor.name.length > 50 || this.donor.name.length < 3) {
+        this.errors.name = "is-invalid";
+      } else {
+        this.errors.name = null;
+      }
+    },
+    validateEmail() {
+      const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+      if (!this.donor.email.match(regex)) {
+        this.errors.email = "is-invalid";
+      } else {
+        this.errors.email = null;
+      }
+    },
+    validateBloodType() {
+      if (this.donor.blood_type) {
+        this.errors.blood_type = null;
+      } else {
+        this.errors.blood_type = "is-invalid";
+      }
+    },
+    validateBloodBank() {
+      if (this.donor.blood_bank_id) {
+        this.errors.blood_bank_id = null;
+      } else {
+        this.errors.blood_bank_id = "is-invalid";
+      }
+    },
+    validateCity() {
+      if (this.donor.city) {
+        this.errors.city = null;
+      } else {
+        this.errors.city = "is-invalid";
+      }
+    },
+    validateNationalID() {
+      const regex =
+        /^(2|3)[0-9][1-9][0-1][1-9][0-3][1-9](01|02|03|04|11|12|13|14|15|16|17|18|19|21|22|23|24|25|26|27|28|29|31|32|33|34|35|88)\d\d\d\d\d$/;
+      if (!this.donor.national_id.match(regex)) {
+        this.errors.national_id = "is-invalid";
+      } else {
+        this.errors.national_id = null;
+      }
+    },
     disableSubmit() {},
   },
-  created: async function () {},
+  created: async function () {
+    const result = await instance.get("/blood-banks", {});
+    this.blood_banks = result.data.data;
+
+    const values = await instance.get("/cities", {});
+    this.cities = values.data.data;
+  },
 };
 </script>
 <style scoped></style>

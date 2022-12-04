@@ -9,7 +9,7 @@ module.exports.up = async function (next) {
     expiration_date DATETIME NOT NULL,
     donor_national_id VARCHAR(14) NOT NULL,
     blood_bank_id INT NOT NULL,
-    hospital_id INT NOT NULL,
+    hospital_id INT DEFAULT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (donor_national_id) REFERENCES donors (national_id) ON DELETE CASCADE,
     FOREIGN KEY (blood_bank_id) REFERENCES blood_banks (id) ON DELETE CASCADE,

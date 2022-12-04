@@ -8,7 +8,7 @@ class CitiesController {
         message: "Cities are found successfully",
         data: data,
       });
-    } catch(err) {
+    } catch (err) {
       next(err);
     }
   }
@@ -22,7 +22,7 @@ class CitiesController {
         message: "The city is created successfully",
         data: null,
       });
-    } catch(err) {
+    } catch (err) {
       next(err);
     }
   }

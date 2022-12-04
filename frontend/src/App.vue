@@ -1,6 +1,9 @@
 <template>
-  <div class="components-wrapper">
-    <RouterView />
+  <div>
+    <HeaderComponent />
+    <div class="components-wrapper">
+      <RouterView />
+    </div>
   </div>
 </template>
 
@@ -8,6 +11,9 @@
 import { RouterView } from "vue-router";
 import HomeComponent from "./components/Home.vue";
 import DonateComponent from "./components/donations/Donate.vue";
+import HospitalRequestsComponent from "./components/hospital_requests/HospitalRequests.vue";
+import HeaderComponent from "./components/Header.vue";
+import DonorsComponent from "./components/donations/Donors.vue";
 
 export default {
   data() {
@@ -21,6 +27,9 @@ export default {
   components: {
     HomeComponent,
     DonateComponent,
+    HospitalRequestsComponent,
+    HeaderComponent,
+    DonorsComponent
   },
 };
 </script>

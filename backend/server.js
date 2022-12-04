@@ -5,6 +5,7 @@ const DonationsRouter = require("./src/donations/donations.routes");
 const BloodBanksRouter = require("./src/blood_banks/blood_banks.routes");
 const CitiesRouter = require("./src/cities/cities.routes");
 const HospitalsRouter = require("./src/hospitals/hospitals.routes");
+const HospitalRequestsRouter = require("./src/hospital_requests/hospital_requests.routes");
 const bodyParser = require("body-parser");
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(DonationsRouter);
 app.use(BloodBanksRouter);
 app.use(CitiesRouter);
 app.use(HospitalsRouter);
+app.use(HospitalRequestsRouter);
 // app.get("/", (req, res) => {
 //   res.status(200).json({ message: "Hello World" });
 // });
@@ -27,6 +29,7 @@ app.use((request, response) => {
 });
 // Error
 app.use((err, req, res, next) => {
+  console.log(err.stack);
   const status = err.status || 500;
   res.status(status).json({ message: err + "" });
 });

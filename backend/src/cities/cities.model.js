@@ -13,6 +13,12 @@ class CitiesModel {
     const sql = `INSERT INTO cities (name, latitude, longitude) VALUES (?,?,?)`;
     await dbProvider.execute(sql, params);
   }
+
+  static async getCityById(city_id) {
+    const sql = `SELECT * FROM cities WHERE id = ?`;
+    const rows = await dbProvider.execute(sql, [city_id]);
+    return rows[0];
+  }
 }
 
 module.exports = CitiesModel;

@@ -20,6 +20,12 @@ class HospitalsModel {
     const rows = await dbProvider.execute(sql, params);
     return rows;
   }
+
+  static async getHospitalById(hospitalId) {
+    const sql = `SELECT * FROM hospitals WHERE id = ?`;
+    const rows = await dbProvider.execute(sql, [hospitalId]);
+    return rows[0];
+  }
 }
 
 module.exports = HospitalsModel;

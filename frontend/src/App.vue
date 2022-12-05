@@ -1,5 +1,6 @@
 <template>
   <div>
+    <notifications position="bottom right" classes="my-notification"/>
     <HeaderComponent />
     <div class="components-wrapper">
       <RouterView />
@@ -14,6 +15,9 @@ import DonateComponent from "./components/donations/Donate.vue";
 import HospitalRequestsComponent from "./components/hospital_requests/HospitalRequests.vue";
 import HeaderComponent from "./components/Header.vue";
 import DonorsComponent from "./components/donations/Donors.vue";
+import LoginComponent from "./components/Login.vue";
+import ListRequestsComponent from "./components/hospital_requests/ListRequests.vue";
+import NotFoundComponentVue from "./components/NotFoundComponent.vue";
 
 export default {
   data() {
@@ -29,7 +33,10 @@ export default {
     DonateComponent,
     HospitalRequestsComponent,
     HeaderComponent,
-    DonorsComponent
+    DonorsComponent,
+    LoginComponent,
+    ListRequestsComponent,
+    NotFoundComponentVue,
   },
 };
 </script>
@@ -44,5 +51,10 @@ body {
   border-radius: 3px;
   box-shadow: 1px 1px 10px;
   width: 85%;
+}
+
+.my-notification{
+  background-color: #7b1fa2;
+  color: white;
 }
 </style>

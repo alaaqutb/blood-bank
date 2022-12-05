@@ -54,7 +54,7 @@ class DonationsModel {
     return rows;
   }
 
-  static async updateDonation(donor_national_id, virus_test, status) {
+  static async updateDonation(virus_test, donor_national_id, status) {
     const sql = `UPDATE donations SET virus_test = ? , status = ?  WHERE donor_national_id = ?`;
     await dbProvider.execute(sql, [virus_test, status, donor_national_id]);
   }

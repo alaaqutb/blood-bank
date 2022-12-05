@@ -1,11 +1,14 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import mitt from "mitt";
+import "./assets/main.css";
+import Notifications from "@kyvg/vue3-notification";
 
-import './assets/main.css'
+const emitter = mitt();
+const app = createApp(App);
+app.config.globalProperties.emitter = emitter;
+app.use(router);
+app.use(Notifications, { name: "alert" });
 
-const app = createApp(App)
-
-app.use(router)
-
-app.mount('#app')
+app.mount("#app");

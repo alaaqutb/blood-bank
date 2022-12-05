@@ -1,9 +1,9 @@
 <template>
   <div class="container p-5 wrapper">
+    <h3 class="mb-4 pb-2">Pending Donations</h3>
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">#</th>
           <th scope="col">National ID</th>
           <th scope="col">Name</th>
           <th scope="col">Email</th>
@@ -18,7 +18,6 @@
           :key="donor.national_id"
           class="cursor-pointer"
         >
-          <th scope="row">{{ index + 1 }}</th>
           <td>{{ donor.national_id }}</td>
           <td>{{ donor.name }}</td>
           <td>{{ donor.email }}</td>
@@ -48,9 +47,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">
-              Result of virus test:
-            </h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Virus Test</h1>
             <button
               type="button"
               class="btn-close"
@@ -68,25 +65,28 @@
                 aria-label=".form-select-sm example"
                 v-model="virusTest"
               >
-                <option value="">Open this select menu</option>
-                <option value="positive">Positive</option>
+                <option value="">--</option>
                 <option value="negative">Negative</option>
+                <option value="positive">Positive</option>
               </select>
             </ul>
           </div>
           <div class="modal-footer">
             <button
               type="button"
-              class="btn navBarColor color-text"
+              class="btn text-light"
+              style="background-color: #7b1fa2"
               data-bs-dismiss="modal"
             >
               Close
             </button>
             <button
               type="button"
-              class="btn navBarColor color-text"
+              class="btn text-light"
+              style="background-color: #7b1fa2"
               data-bs-dismiss="modal"
               @click.prevent="updateDonation()"
+              :disabled="!virusTest"
             >
               Submit
             </button>
@@ -98,41 +98,62 @@
 </template>
 <script>
 import { instance } from "../../axios/axios";
+import { notify } from "@kyvg/vue3-notification";
+
 export default {
   data() {
     return {
       virusTest: "",
       donorIndex: null,
-      donors: {
-        national_id: "",
-        name: "",
-        email: "",
-        blood_type: "",
-        last_donation: "",
-        city_id: "",
-      },
+      donors: [],
+      // {
+      //   national_id: "",
+      //   name: "",
+      //   email: "",
+      //   blood_type: "",
+      //   last_donation: "",
+      //   city_id: "",
+      // },
     };
   },
   methods: {
     async updateDonation() {
-      const national_id = this.donors[this.donorIndex].national_id;
-      const result = await instance.put("/donate", {
-        national_id,
-        virus_test: this.virusTest,
-      });
+      try {
+        const national_id = this.donors[this.donorIndex].national_id;
+        const token = this.getToken();
+        await instance.put(
+          "/donate",
+          {
+            national_id,
+            virus_test: this.virusTest,
+          },
+          { headers: { authorization: token } }
+        );
+        notify({
+          title: "Done",
+        });
+        this.$router.go();
+      } catch (err) {
+        notify({
+          title: err.response.data.message,
+        });
+      }
+    },
+    getToken() {
+      return localStorage.getItem("token");
     },
   },
   created: async function () {
-    const result = await instance.get("/donors", {});
+    const token = this.getToken();
+    const result = await instance.get("/donors", {
+      headers: { authorization: token },
+    });
     this.donors = result.data.data;
   },
 };
 </script>
-<style scoped>
+<style>
 .cursor-pointer {
   cursor: pointer;
-}
-.color-text {
-  color: white;
 }
 </style>

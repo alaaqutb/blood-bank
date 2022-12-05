@@ -10,7 +10,9 @@ class DistancesModel {
 
   static async getHospitalsBloodBanksDistance(hospitalsIds, bloodBanksIds) {
     const sql = `SELECT * FROM distances WHERE hospital_id IN (?) AND blood_bank_id IN (?) ORDER BY distance`;
-    return await dbProvider.execute(sql, [hospitalsIds, bloodBanksIds]);
+    const rows = await dbProvider.execute(sql, [hospitalsIds, bloodBanksIds]);
+    return rows;
   }
 }
+
 module.exports = DistancesModel;

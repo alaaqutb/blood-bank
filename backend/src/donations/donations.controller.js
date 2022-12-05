@@ -2,6 +2,7 @@ const DonationsModel = require("./donations.model");
 const BloodBanksModel = require("../blood_banks/blood_banks.model");
 const BloodStocksModel = require("../blood_stocks/blood_stocks.model");
 const dotenv = require("dotenv");
+const nodemailer = require("nodemailer");
 
 dotenv.config();
 const { MAIL_USER, MAIL_PASS, MAIL_HOST } = process.env;
@@ -62,6 +63,20 @@ class DonationsController {
     }
   }
 
+  static async getDonor(req, res, next) {
+    try {
+      const donor = await DonationsModel.getDonorByNationalId(req.params.id);
+      res.json({
+        message: donor
+          ? "The donor is found successfully"
+          : "The donor is not found",
+        data: donor,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async getDonors(req, res, next) {
     try {
       const data = await DonationsModel.getDonors();
@@ -103,10 +118,9 @@ class DonationsController {
       // select * from donations where donor_national_id = ? and status = 'pending'
       // because each donor has ONLY ONE pending donation
       if (status === "accepted") {
-        const donation =
-          await DonationsController.getPendingDonationByNationalId(
-            donor_national_id
-          );
+        const donation = await DonationsModel.getPendingDonationByNationalId(
+          donor_national_id
+        );
         const nationalId = donation.donor_national_id;
         const bloodType = donation.blood_type;
         const bloodBankId = donation.blood_bank_id;
@@ -126,8 +140,8 @@ class DonationsController {
         donor_national_id,
         status
       );
-      // send rejection email
-      const donor = await DonationsController.getDonorByNationalId(
+      // send email
+      const donor = await DonationsModel.getDonorByNationalId(
         donor_national_id
       );
       DonationsController.createEmail(
@@ -188,7 +202,7 @@ class DonationsController {
     if (!data.email || !data.national_id || !data.name || !data.city_id) {
       throw new Error("Missing data");
     }
-    if (!data.national_id.match(nationalIdRegex)) {
+    if (!String(data.national_id).match(nationalIdRegex)) {
       throw new Error("Invalid National ID");
     }
 

@@ -16,6 +16,21 @@ class HospitalsController {
     }
   }
 
+  static async getHospital(req, res, next) {
+    try {
+      const hospitalId = req.params.id;
+      const hospital = await HospitalsModel.getHospitalById(hospitalId);
+      res.json({
+        message: "The hospital is found successfully",
+        data: {
+          hospitalName: hospital ? hospital.name : "",
+        },
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async createHospital(req, res, next) {
     try {
       const { name, city_id } = req.body;
